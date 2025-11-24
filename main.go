@@ -53,7 +53,7 @@ func main() {
 	winningMachine := NewWinningMachine(winningLotto, bonusNum, WinningInfos)
 
 	winningInfos := winningMachine.CheckWinnings(lottos)
-	fmt.Println(winningInfos)
+	//fmt.Println(winningInfos)
 
 	stat := make(map[string]int)
 
@@ -72,6 +72,9 @@ func main() {
 		key := formatWinningKey(&info)
 		fmt.Printf("%s - %d개\n", key, stat[key])
 	}
+
+	winningPrize := SumPrizes(winningInfos)
+	PrintProfitRate(money, winningPrize)
 }
 
 func formatWinningKey(info *WinningInfo) string {
@@ -79,4 +82,14 @@ func formatWinningKey(info *WinningInfo) string {
 		return fmt.Sprintf("5개 일치, 보너스 볼 일치 (%d원)", info.Prize)
 	}
 	return fmt.Sprintf("%d개 일치 (%d원)", info.MatchCount, info.Prize)
+}
+
+func PrintProfitRate(totalPrize int, spent int) {
+	if spent == 0 {
+		fmt.Println("총 수익률은 0%입니다.")
+		return
+	}
+
+	rate := float64(totalPrize) / float64(spent) * 100
+	fmt.Printf("총 수익률은 %.1f%%입니다.\n", rate)
 }

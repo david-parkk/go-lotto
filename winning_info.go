@@ -4,7 +4,7 @@ type WinningInfo struct {
 	Rank       int
 	MatchCount int
 	HasBonus   bool
-	Prize      int64
+	Prize      int
 }
 
 var WinningInfos = []WinningInfo{
@@ -15,11 +15,21 @@ var WinningInfos = []WinningInfo{
 	{Rank: 5, MatchCount: 3, HasBonus: false, Prize: 5000},
 }
 
-func NewWinningInfo(rank int, matchCount int, hasBonus bool, prize int64) *WinningInfo {
+func NewWinningInfo(rank int, matchCount int, hasBonus bool, prize int) *WinningInfo {
 	return &WinningInfo{
 		Rank:       rank,
 		MatchCount: matchCount,
 		HasBonus:   hasBonus,
 		Prize:      prize,
 	}
+}
+
+func SumPrizes(results []*WinningInfo) int {
+	var total int = 0
+	for _, r := range results {
+		if r != nil {
+			total += r.Prize
+		}
+	}
+	return total
 }
