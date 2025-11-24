@@ -1,6 +1,8 @@
 package main
 
 import (
+	"go-lotto/io"
+	"go-lotto/lotto"
 	"os"
 )
 
@@ -8,25 +10,25 @@ import (
 // the <icon src="AllIcons.Actions.Execute"/> icon in the gutter and select the <b>Run</b> menu item from here.</p>
 
 func main() {
-	money := ReadMoney(os.Stdin)
+	money := io.ReadMoney(os.Stdin)
 
 	count := money / 1000
-	PrintCount(count)
+	io.PrintCount(count)
 
-	machine := NewLottoMachine(45, 6)
-	lottos := machine.Generates(count, UserLotto)
+	machine := lotto.NewLottoMachine(45, 6)
+	lottos := machine.Generates(count, lotto.UserLotto)
 
-	PrintLottos(lottos)
+	io.PrintLottos(lottos)
 
-	numbers := ReadWinningNumbers(os.Stdin)
-	winningLotto, _ := NewLotto(numbers, WinningLotto)
+	numbers := io.ReadWinningNumbers(os.Stdin)
+	winningLotto, _ := lotto.NewLotto(numbers, lotto.WinningLotto)
 
-	bonusNum := ReadBonusNumber(os.Stdin)
-	winningMachine := NewWinningMachine(winningLotto, bonusNum, WinningInfos)
+	bonusNum := io.ReadBonusNumber(os.Stdin)
+	winningMachine := lotto.NewWinningMachine(winningLotto, bonusNum, lotto.WinningInfos)
 
 	winningInfos := winningMachine.CheckWinnings(lottos)
 
-	PrintWinningStats(winningInfos, WinningInfos)
-	totalPrize := SumPrizes(winningInfos)
-	PrintProfitRate(money, totalPrize)
+	io.PrintWinningStats(winningInfos, lotto.WinningInfos)
+	totalPrize := lotto.SumPrizes(winningInfos)
+	io.PrintProfitRate(money, totalPrize)
 }

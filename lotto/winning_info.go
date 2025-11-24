@@ -1,4 +1,4 @@
-package main
+package lotto
 
 type WinningInfo struct {
 	Rank       int

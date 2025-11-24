@@ -1,19 +1,20 @@
-package main
+package io
 
 import (
 	"fmt"
+	"go-lotto/lotto"
 )
 
 func PrintCount(count int) {
 	fmt.Println(count, "개를 구매했습니다.")
 }
-func PrintLottos(lottos []Lotto) {
+func PrintLottos(lottos []lotto.Lotto) {
 	for _, l := range lottos {
 		fmt.Println(l.String())
 	}
 }
 
-func PrintWinningStats(winningInfos []*WinningInfo, allInfos []WinningInfo) {
+func PrintWinningStats(winningInfos []*lotto.WinningInfo, allInfos []lotto.WinningInfo) {
 	stat := make(map[string]int)
 
 	for _, r := range winningInfos {
@@ -42,7 +43,7 @@ func PrintProfitRate(totalSpent int, totalPrize int) {
 	fmt.Printf("총 수익률은 %.1f%%입니다.\n", rate)
 }
 
-func formatWinningKey(info *WinningInfo) string {
+func formatWinningKey(info *lotto.WinningInfo) string {
 	if info.MatchCount == 5 && info.HasBonus {
 		return fmt.Sprintf("5개 일치, 보너스 볼 일치 (%d원)", info.Prize)
 	}
