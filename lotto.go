@@ -8,9 +8,10 @@ import (
 
 type Lotto struct {
 	Numbers []int
+	Type    LottoType
 }
 
-func NewLotto(numbers []int) (*Lotto, error) {
+func NewLotto(numbers []int, Type LottoType) (*Lotto, error) {
 	if len(numbers) != 6 {
 		return nil, errors.New("[ERROR] 로또 번호는 6개여야 합니다.")
 	}
@@ -22,7 +23,7 @@ func NewLotto(numbers []int) (*Lotto, error) {
 	}
 
 	sort.Ints(numbers)
-	return &Lotto{Numbers: numbers}, nil
+	return &Lotto{Numbers: numbers, Type: Type}, nil
 }
 
 func (lotto *Lotto) String() string {
