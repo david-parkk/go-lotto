@@ -5,7 +5,6 @@ type LottoType int
 const (
 	UserLotto LottoType = iota
 	WinningLotto
-	BonusLotto
 )
 
 func (lt LottoType) String() string {

@@ -7,7 +7,7 @@ type WinningInfo struct {
 	Prize      int64
 }
 
-var WinningInfos = []*WinningInfo{
+var WinningInfos = []WinningInfo{
 	{Rank: 1, MatchCount: 6, HasBonus: false, Prize: 2000000000},
 	{Rank: 2, MatchCount: 5, HasBonus: true, Prize: 30000000},
 	{Rank: 3, MatchCount: 5, HasBonus: false, Prize: 1500000},
