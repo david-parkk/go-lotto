@@ -10,8 +10,8 @@ type LottoMachine struct {
 	length int
 }
 
-func NewLottoMachine() *LottoMachine {
-	return &LottoMachine{}
+func NewLottoMachine(end int, length int) *LottoMachine {
+	return &LottoMachine{end: end, length: length}
 }
 
 func (lottoMachine *LottoMachine) Generates(count int, lottoType LottoType) []Lotto {
