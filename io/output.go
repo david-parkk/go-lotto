@@ -3,18 +3,20 @@ package io
 import (
 	"fmt"
 	"go-lotto/lotto"
+	"io"
 )
 
-func PrintCount(count int) {
-	fmt.Println(count, "개를 구매했습니다.")
+func PrintCount(count int, writer io.Writer) {
+	fmt.Fprintf(writer, "%d개를 구매했습니다.\n", count)
 }
-func PrintLottos(lottos []lotto.Lotto) {
+
+func PrintLottos(lottos []lotto.Lotto, writer io.Writer) {
 	for _, l := range lottos {
-		fmt.Println(l.String())
+		fmt.Fprintln(writer, l.String())
 	}
 }
 
-func PrintWinningStats(winningInfos []*lotto.WinningInfo, allInfos []lotto.WinningInfo) {
+func PrintWinningStats(winningInfos []*lotto.WinningInfo, allInfos []lotto.WinningInfo, writer io.Writer) {
 	stat := make(map[string]int)
 
 	for _, r := range winningInfos {
@@ -25,22 +27,22 @@ func PrintWinningStats(winningInfos []*lotto.WinningInfo, allInfos []lotto.Winni
 		stat[key]++
 	}
 
-	fmt.Println("당첨 통계")
-	fmt.Println("---")
+	fmt.Fprintln(writer, "당첨 통계")
+	fmt.Fprintln(writer, "---")
 	for _, info := range allInfos {
 		key := formatWinningKey(&info)
-		fmt.Printf("%s - %d개\n", key, stat[key])
+		fmt.Fprintf(writer, "%s - %d개\n", key, stat[key])
 	}
 }
 
-func PrintProfitRate(totalSpent int, totalPrize int) {
+func PrintProfitRate(writer io.Writer, totalSpent int, totalPrize int) {
 	if totalPrize == 0 {
-		fmt.Println("총 수익률은 0%입니다.")
+		fmt.Fprintln(writer, "총 수익률은 0%입니다.")
 		return
 	}
 
 	rate := float64(totalPrize) / float64(totalSpent) * 100
-	fmt.Printf("총 수익률은 %.1f%%입니다.\n", rate)
+	fmt.Fprintf(writer, "총 수익률은 %.1f%%입니다.\n", rate)
 }
 
 func formatWinningKey(info *lotto.WinningInfo) string {
