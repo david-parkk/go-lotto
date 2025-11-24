@@ -22,7 +22,7 @@ func TestNewLotto_WrongLength(t *testing.T) {
 
 func TestNewLotto_OutOfRangeNumber(t *testing.T) {
 	numbers := []int{0, 2, 3, 4, 5, 6}
-	_, err := NewLotto(numbers, BonusLotto)
+	_, err := NewLotto(numbers, WinningLotto)
 	assert.Error(t, err)
 	assert.Contains(t, err.Error(), "1~45")
 }

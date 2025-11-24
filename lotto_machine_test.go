@@ -5,18 +5,20 @@ import (
 )
 
 func TestLottoMachine_Generate(t *testing.T) {
-	machine := NewLottoMachine()
+	end := 45
+	length := 6
+	machine := NewLottoMachine(end, length)
 	machine.end = 45
 
 	lotto := machine.Generate(UserLotto)
 
-	if len(lotto.Numbers) != 6 {
+	if len(lotto.Numbers) != length {
 		t.Errorf("로또 번호 개수 오류: got %d, want 6", len(lotto.Numbers))
 	}
 
 	numMap := make(map[int]bool)
 	for _, n := range lotto.Numbers {
-		if n < 1 || n > 45 {
+		if n < 1 || n > end {
 			t.Errorf("로또 번호 범위 오류: got %d", n)
 		}
 		if numMap[n] {
@@ -31,7 +33,9 @@ func TestLottoMachine_Generate(t *testing.T) {
 }
 
 func TestLottoMachine_Generates(t *testing.T) {
-	machine := NewLottoMachine()
+	end := 45
+	length := 6
+	machine := NewLottoMachine(end, length)
 	machine.end = 45
 	count := 10
 
