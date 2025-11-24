@@ -50,5 +50,33 @@ func main() {
 		log.Println("[ERROR] 입력을 읽을 수 없습니다.")
 		_, err = fmt.Scanln(&bonusNum)
 	}
-	NewWinningMachine(winningLotto, bonusNum, WinningInfos)
+	winningMachine := NewWinningMachine(winningLotto, bonusNum, WinningInfos)
+
+	winningInfos := winningMachine.CheckWinnings(lottos)
+	fmt.Println(winningInfos)
+
+	stat := make(map[string]int)
+
+	for _, r := range winningInfos {
+		if r == nil {
+			continue
+		}
+
+		key := formatWinningKey(r)
+		stat[key]++
+	}
+
+	fmt.Println("당첨 통계")
+	fmt.Println("---")
+	for _, info := range WinningInfos { // 미리 정의한 등수 리스트
+		key := formatWinningKey(&info)
+		fmt.Printf("%s - %d개\n", key, stat[key])
+	}
+}
+
+func formatWinningKey(info *WinningInfo) string {
+	if info.MatchCount == 5 && info.HasBonus {
+		return fmt.Sprintf("5개 일치, 보너스 볼 일치 (%d원)", info.Prize)
+	}
+	return fmt.Sprintf("%d개 일치 (%d원)", info.MatchCount, info.Prize)
 }
