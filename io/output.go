@@ -3,6 +3,7 @@ package io
 import (
 	"fmt"
 	"go-lotto/lotto"
+	"golang.org/x/text/message"
 	"io"
 )
 
@@ -46,8 +47,10 @@ func PrintProfitRate(writer io.Writer, totalSpent int, totalPrize int) {
 }
 
 func formatWinningKey(info *lotto.WinningInfo) string {
+	p := message.NewPrinter(message.MatchLanguage("ko"))
+
 	if info.MatchCount == 5 && info.HasBonus {
-		return fmt.Sprintf("5개 일치, 보너스 볼 일치 (%d원)", info.Prize)
+		return p.Sprintf("5개 일치, 보너스 볼 일치 (%d원)", info.Prize)
 	}
-	return fmt.Sprintf("%d개 일치 (%d원)", info.MatchCount, info.Prize)
+	return p.Sprintf("%d개 일치 (%d원)", info.MatchCount, info.Prize)
 }
